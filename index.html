@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Vue - Switch Light/Dark Mode</title>
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+			crossorigin="anonymous"
+		/>
+		<link href="./app.css" rel="stylesheet" />
+	</head>
+	<body>
+		<div id="app" class="container">
+			<topbar></topbar>
+			<home></home>
+		</div>
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script src="https://unpkg.com/http-vue-loader"></script>
+		<script src="https://npmcdn.com/vue-router/dist/vue-router.js"></script>
+
+		<script>
+			let app;
+
+			app = new Vue({
+				el: '#app',
+				data() {
+					return {
+						theme: '', //When this property is empty, the theme is set to the default theme i.e. light mode.
+					};
+				},
+				components: {
+					topbar: httpVueLoader('./topbar.vue'),
+					home: httpVueLoader('./home.vue'),
+				},
+				mounted() {
+					let localTheme = localStorage.getItem('theme'); //gets stored theme value if any
+					document.documentElement.setAttribute('data-theme', localTheme); // updates the data-theme attribute
+				},
+			});
+		</script>
+	</body>
+</html>
